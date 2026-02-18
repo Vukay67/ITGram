@@ -1,0 +1,225 @@
+{% extends './base.html' %}
+
+{% load static %}
+
+{% block title %}Главная - ITGram{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/common.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<main class="page">
+<div class="container grid">
+    <!-- Feed (left) -->
+    <section class="feed">
+    <!-- Stories -->
+    <div class="card stories" aria-label="Сторисы">
+        <div class="stories__row" id="storiesRow">
+        <!-- story items (click opens modal) -->
+        <div class="story" data-story-user="amethyst_grl" data-story-name="Amethyst" data-story-text="Сегодня я закончила UI-концепт ленты ✨"
+                data-story-img="https://picsum.photos/seed/itgram_story_1/1200/900">
+            <div class="story__ring"><div class="story__pic"></div></div>
+            <div class="story__name">amethyst_grl</div>
+        </div>
+
+        <div class="story" data-story-user="lil_lapisla..." data-story-name="Lapis" data-story-text="Dev-лог: делаю темную тему без боли 😄"
+                data-story-img="https://picsum.photos/seed/itgram_story_2/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#38bdf8,var(--brand-1))"></div></div>
+            <div class="story__name">lil_lapisla...</div>
+        </div>
+
+        <div class="story" data-story-user="dark_emer..." data-story-name="Emerald" data-story-text="Сторис-ревью: карточки + тени + радиусы ✅"
+                data-story-img="https://picsum.photos/seed/itgram_story_3/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#22c55e,var(--brand-2))"></div></div>
+            <div class="story__name">dark_emer...</div>
+        </div>
+
+        <div class="story" data-story-user="hey_sarah..." data-story-name="Sarah" data-story-text="Новые иконки для topbar готовы 💜"
+                data-story-img="https://picsum.photos/seed/itgram_story_4/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#fb7185,var(--brand-1))"></div></div>
+            <div class="story__name">hey_sarah...</div>
+        </div>
+
+        <div class="story" data-story-user="photos_by..." data-story-name="Photo" data-story-text="Поймал красивый кадр для поста. Пурпурный вайб!"
+                data-story-img="https://picsum.photos/seed/itgram_story_5/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#fbbf24,var(--brand-1))"></div></div>
+            <div class="story__name">photos_by...</div>
+        </div>
+
+        <div class="story" data-story-user="heyach2002" data-story-name="Acha" data-story-text="Собрала сетку, теперь всё ровно как в макете 😌"
+                data-story-img="https://picsum.photos/seed/itgram_story_6/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#a78bfa,#34d399)"></div></div>
+            <div class="story__name">heyach2002</div>
+        </div>
+
+        <div class="story" data-story-user="kenzoere" data-story-name="Kenzo" data-story-text="Фидбек: добавьте модалку сторис — выглядит топ!"
+                data-story-img="https://picsum.photos/seed/itgram_story_7/1200/900">
+            <div class="story__ring"><div class="story__pic" style="background:linear-gradient(135deg,#60a5fa,var(--brand-2))"></div></div>
+            <div class="story__name">kenzoere</div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Posts -->
+     {% for post in posts %}
+    <article class="card post" aria-label="Пост">
+        <div class="card__head">
+        <div class="post__meta">
+            <div class="post__userpic" aria-hidden="true"></div>
+            <div class="post__user">
+            <strong>{{ post.author }}</strong>
+            <span class="muted">{{ post.created_at }}</span>
+            </div>
+        </div>
+        <button class="post__menu" type="button" aria-label="Меню поста">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h.01M12 12h.01M19 12h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </button>
+        </div>
+
+        <div class="post__media">
+        <!-- Можно заменить на ваши картинки -->
+        <img src="{{ post.photo.url }}" alt="Фото поста" />
+        </div>
+
+        <div class="post__body">
+        <div class="post__actions">
+            <button class="chip" type="button" data-like>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s-7-4.5-9.5-9.2C.6 8.2 2.7 5 6.2 5c2 0 3.4 1.1 3.8 1.7.4-.6 1.8-1.7 3.8-1.7 3.5 0 5.6 3.2 3.7 6.8C19 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span><strong data-like-count>{{ post.likes }}</strong></span>
+            </button>
+
+            <button class="chip" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6.5A3.5 3.5 0 0 1 7.5 3h9A3.5 3.5 0 0 1 20 6.5v7A3.5 3.5 0 0 1 16.5 17H10l-4.5 4V17A3.5 3.5 0 0 1 4 13.5v-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span><strong>{{ post.comments }}</strong></span>
+            </button>
+
+            <button class="chip" type="button" title="Поделиться">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 3 10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M21 3 14 21l-4-9-9-4 20-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span>Поделиться</span>
+            </button>
+        </div>
+
+        <div class="post__caption">
+            <strong>{{ post.author }}: </strong>
+            {{ post.text }}
+        </div>
+        </div>
+    </article>
+    {% endfor %}
+    </section>
+
+    <!-- Sidebar (right) -->
+    <aside class="sidebar">
+    <div class="card profile">
+        <div class="profile__left">
+        <div class="profile__pic" aria-hidden="true"></div>
+        <div class="profile__name">
+            <strong>eloears</strong>
+            <span>eloears</span>
+        </div>
+        </div>
+        <button class="linkbtn" type="button">Switch</button>
+    </div>
+
+    <div class="card suggestions">
+        <div class="suggestions__head">
+        <span>Рекомендации по подписке</span>
+        </div>
+
+        <div class="suglist">
+        <div class="sug">
+            <div class="sug__pic" aria-hidden="true"></div>
+            <div class="sug__txt">
+            <strong>kenoere</strong>
+            <span>Подписаны на heyach2002</span>
+            </div>
+            <button class="followbtn" type="button">Подписаться</button>
+        </div>
+
+        <div class="sug">
+            <div class="sug__pic" style="background:linear-gradient(135deg,#22c55e,var(--brand-1))" aria-hidden="true"></div>
+            <div class="sug__txt">
+            <strong>lofti232</strong>
+            <span>Подписаны на kenoere</span>
+            </div>
+            <button class="followbtn" type="button">Подписаться</button>
+        </div>
+
+        <div class="sug">
+            <div class="sug__pic" style="background:linear-gradient(135deg,#fb7185,var(--brand-2))" aria-hidden="true"></div>
+            <div class="sug__txt">
+            <strong>sapphireblues_19</strong>
+            <span>Подписаны на lofti232</span>
+            </div>
+            <button class="followbtn" type="button">Подписаться</button>
+        </div>
+
+        <div class="sug">
+            <div class="sug__pic" style="background:linear-gradient(135deg,#fbbf24,var(--brand-1))" aria-hidden="true"></div>
+            <div class="sug__txt">
+            <strong>gwangurl77</strong>
+            <span>Подписаны на lofti232</span>
+            </div>
+            <button class="followbtn" type="button">Подписаться</button>
+        </div>
+
+        <div class="sug">
+            <div class="sug__pic" style="background:linear-gradient(135deg,#38bdf8,var(--brand-2))" aria-hidden="true"></div>
+            <div class="sug__txt">
+            <strong>amethyst_grl</strong>
+            <span>Подписаны на dark_emeralds</span>
+            </div>
+            <button class="followbtn" type="button">Подписаться</button>
+        </div>
+        </div>
+    </div>
+    </aside>
+</div>
+</main>
+
+<!-- Story Modal -->
+<div class="modal" id="storyModal" aria-hidden="true">
+<div class="modal__panel" role="dialog" aria-modal="true" aria-label="Story">
+    <div class="modal__media">
+    <img id="storyImg" src="" alt="Story media" />
+    </div>
+
+    <div class="modal__side">
+    <div class="modal__top">
+        <div class="modal__user">
+        <div class="post__userpic" id="storyUserPic" aria-hidden="true"></div>
+        <div style="min-width:0">
+            <strong id="storyUser">@user</strong>
+            <span id="storyName" class="muted">Name</span>
+        </div>
+        </div>
+        <button class="closebtn" id="closeStory" type="button" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        </button>
+    </div>
+
+    <div class="modal__text" id="storyText"></div>
+
+    <!-- <div class="modal__bottom">
+        <input placeholder="Ответить на сторис..." />
+        <button class="sendbtn" type="button">Send</button>
+    </div> -->
+    </div>
+</div>
+</div>
+{% endblock %}
