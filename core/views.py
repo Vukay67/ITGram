@@ -2,14 +2,16 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Stories
 from .forms import AuthenticationForm, RegistrationForm
 
 @login_required
 def feed_page(request):
+    stories = Stories.objects.all()
     posts = Post.objects.all()
     context = {
-        'posts': posts
+        'posts': posts,
+        'stories': stories
     }
     return render(request, "index.html", context)
 
